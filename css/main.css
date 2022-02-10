@@ -1,0 +1,192 @@
+:root {
+    --blue: #4477e4;
+    --red: #e64646;
+    --black: #00000080;
+    --beige: beige;
+}
+
+
+/* GENERAL */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/*GENERAL*/
+body {
+    min-height: 100vh;
+}
+
+/*NAVBAR*/
+
+.nav-bar {
+    background: rgb(248, 247, 244);
+}
+
+.logo {
+    color: var(--red);
+    font-size: 22px;
+    padding: 15px 15px;
+    
+}
+
+.mef-logo {
+    border-radius: 8px;
+}
+
+#navbarNav li a {
+    color: #000;
+    font-size: 22px;
+    font-weight: 500;
+    list-style: none;
+}
+
+#navbarNav li a:hover {
+        color: rgb(241, 65, 20);
+        transition: .5s;
+}
+
+.nav-item {
+    padding: 15px;
+    list-style: none;
+    z-index: 10;
+}
+
+.navbar-nav {
+    padding: 20px;
+    margin: 15px;
+}
+
+.navbar-toggler-icon { 
+    border: 2px solid #000;
+}
+
+
+/*INDEX SECTION*/
+.bodyproyecto {
+    background: linear-gradient(180deg, #33353b 0%, #1a1b1f 100%);
+    min-height: 100vh;
+}
+
+.index-section {
+    height: 100%;
+    
+}
+
+.h1-index {
+    color: rgb(240, 240, 229);
+    font-size: 30px;
+    font-weight: 250;
+    padding-top: 30px;
+}
+
+.hr-index {
+    color: antiquewhite;
+    
+    
+}
+
+.p-index {
+    color: rgb(240, 240, 229);
+    font-size: 25px;
+}
+
+
+.carousel-inner img {
+    max-width: 70%;
+    margin: 0 auto; 
+    padding-top: 30px;
+    padding-bottom: 30px;
+    
+}
+
+.h2-index {
+    color: rgb(240, 240, 229);
+}
+
+/* ESTILOS FOOTER */
+.div_footer {
+        display: grid;
+        grid-template-columns: 6fr 6fr 6fr;
+        justify-content: space-between;
+        text-align: center;
+        align-content: center;
+        background: linear-gradient(180deg, #30353b 0%, #1a1b1f 100%);
+        color: #fff;
+        height: 100px;
+        
+}
+
+.item_footer {
+    justify-content: center;
+    text-align: center;
+    
+}
+
+div i {
+    color: rgb(250, 78, 55);
+    padding: 8px;
+    font-size: 18px;
+}
+
+i:hover {
+    scale: 1.2;
+    transition: .5s;
+}
+
+.item_footer h3 {
+    font-weight: 150;
+    font-size: 18px;
+}
+
+/*SOBRE NOSOTROS */
+
+
+.section-nosotros {
+    background: rgb(223, 221, 216);
+    min-height: 100vh;
+}
+
+
+.card {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 110px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 50px;
+}
+
+.card img {
+    border-top-left-radius: 40px;
+    border-top-right-radius: 90px;
+}
+
+.card-title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 18px;
+}
+
+.pc-builder {
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 40px 100px;
+}
+
+.h2-nosotros {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.p-nosotros {
+    font-size: 22px;
+}
+
+.ul-nosotros {
+    font-size: 20px;
+}
