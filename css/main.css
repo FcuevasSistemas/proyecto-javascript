@@ -72,7 +72,7 @@ body {
 }
 
 .index-section {
-    height: 100%;
+    min-height: 100%;
     
 }
 
@@ -96,7 +96,7 @@ body {
 
 
 .carousel-inner img {
-    max-width: 70%;
+    max-width: 60%;
     margin: 0 auto; 
     padding-top: 30px;
     padding-bottom: 30px;
@@ -105,6 +105,13 @@ body {
 
 .h2-index {
     color: rgb(240, 240, 229);
+}
+
+.maps {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(223, 221, 216);
 }
 
 /* ESTILOS FOOTER */
@@ -189,4 +196,25 @@ i:hover {
 
 .ul-nosotros {
     font-size: 20px;
+}
+
+/* INDEX PRODUCTOS */
+
+.section-productos {
+    background: rgb(223, 221, 216);
+    min-height: 100vh;
+}
+
+.controles-remotos img {
+        width: 300px;
+        height: 300px;
+        padding: 15px;
+        margin: 20px;
+}
+
+.cables-audio img{
+        width: 300px;
+        height: 300px;
+        padding: 15px;
+        margin: 20px;
 }
