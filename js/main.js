@@ -16,7 +16,7 @@ let precioProductoD = 1500;
 
 
 function menu(){
-    let opcion = prompt("Menu: \n1 - Ver productos \nesc - Salir")
+    let opcion = prompt ("Menu: \n1 - Ver productos \nesc - Salir")
 
     switch(opcion){
         case "1":
@@ -25,13 +25,17 @@ function menu(){
             break;
             
             case "esc":
-            saludar("Bienvenido ");
+            saludar("Gracias ");
             break; 
+
+            default:
+                alert("Opcion incorrecta");
     }
 }
 
+
 function saludar (saludo){
-    alert(saludo + "a la sección de productos!");
+    alert(saludo + "Por visitar nuestra página!");
 }
 
 function listarProductos(){
@@ -50,13 +54,13 @@ function stockSuficiente(stock, nombre) {
     console.log("El stock remanente es de: " + stock + nombre);
 }
 
-function calcularPrecio(precio, descuento){
+function calcularPrecio(precio){
     precioTotalVenta += cantidadComprada * precio;
 }
 
 
 function compra(stock, precio, nombre) {
-    cantidadComprada = parseInt(prompt("Ingrese la cantidad que quiere comprar:"));
+    cantidadComprada = parseInt(prompt("Ingresa la cantidad que quiere comprar:"));
     if(cantidadComprada <= stock) {
     stockSuficiente(stock, nombre);
         if(cantidadComprada > 3){
@@ -73,11 +77,11 @@ function compra(stock, precio, nombre) {
 
 function comprarProductos(){
 
-    let cantidadProductosComprados = parseInt(prompt("Ingrese la cantidad de productos distintos que quiere comprar"))
+    let cantidadProductosComprados = parseInt(prompt("Ingresa la cantidad de productos distintos que quiere comprar"))
 
     for (let i = 0; i < cantidadProductosComprados; i++) {
 
-        let nombreCompra = prompt("Ingrese el nombre del producto que quiere comprar:")
+        let nombreCompra = prompt("Ingresa el nombre del producto que quiere comprar:")
 
         if (nombreCompra == nombreProductoA) {
             compra(stockProductoA, precioProductoA, nombreProductoA)
