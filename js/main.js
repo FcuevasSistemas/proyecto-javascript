@@ -1,46 +1,72 @@
-let nombreProductoA = 'Control Noblex';
-let stockProductoA = 4;
-let precioProductoA = 1400;
+function Productos (nombreValor, stockValor, precioValor, descuentoValor){
+    this.nombre = nombreValor;
+    this.stock = stockValor;
+    this.precio = precioValor;
+    this.descuento = descuentoValor;
 
-let nombreProductoB = 'Control Philips';
-let stockProductoB = 3;
-let precioProductoB = 1300;
+    this.venta = function(cantidadComprada){
+        this.stock -= cantidadComprada
+        console.log("El stock remanente es de: " + this.stock + " " + this.nombre);
+    }
+}
 
-let nombreProductoC = 'Control Samsung';
-let stockProductoC = 2;
-let precioProductoC = 1200;
 
-let nombreProductoD = 'Control LG';
-let stockProductoD = 1;
-let precioProductoD = 1500;
+let contador = 0
+let listadoProductosMenu = "Estos son nuestros productos: "
 
+const productoA = new Productos("Control Noblex", 10, 1200, 0.8)
+const productoB = new Productos("Control Philips", 8, 1100, 0.9)
+const productoC = new Productos("Control Samsung", 6, 1350, 0.95)
+const productoD = new Productos("Control LG", 4, 1500, 0.8)
+const productoE = new Productos("Cable RCA común", 12, 400, 0.9)
+const productoF = new Productos("Cable RCA reforzado", 10, 500, 0.9)
+const productoG = new Productos("Cable 3.5 - RCA", 20, 420, 0.9)
+const productoH = new Productos("Cable 3.5 - RCA reforzado", 2, 550, 0.9)
+
+const listaProductos = [productoA, productoB, productoC, productoD,
+    productoE,productoF,productoG,productoH]
+
+const menorPrecio = listaProductos.filter(producto => producto.precio <= 600);
+const menorStock = listaProductos.filter(producto => producto.stock <= 5);
+console.log(menorPrecio);        
+console.log(menorStock);
+
+
+
+
+
+for(const producto of listaProductos){
+    contador++
+    listadoProductosMenu += "\n" + contador + "- " + producto.nombre
+}
+
+function listarProductos(){
+    alert(listadoProductosMenu)
+}
 
 function menu(){
-    let opcion = prompt ("Menu: \n1 - Ver productos \nesc - Salir")
+    let opcion = prompt("Menu: \n1 - Ver productos\n2 - Saludar\nESC- Salir")
 
     switch(opcion){
         case "1":
             listarProductos();
             comprarProductos();
             break;
-            
-            case "esc":
-            saludar("Gracias ");
-            break; 
-
-            default:
-                alert("Opcion incorrecta");
+        case "2":
+            saludar("Bienvenido a");
+            menu();
+            break;
+        case "ESC":
+            saludar("Gracias por visitar")
+            break;
     }
 }
 
-
-function saludar (saludo){
-    alert(saludo + "Por visitar nuestra página!");
+function saludar(saludo){
+    alert(saludo + " la sección productos!")
 }
 
-function listarProductos(){
-    alert("Estos son nuestros productos: \n1- " + nombreProductoA + "\n2- " + nombreProductoB + "\n3-" + nombreProductoC + "\n4-" + nombreProductoD)
-}
+
 
 let cantidadComprada;
 let precioTotalVenta = 0;
@@ -49,22 +75,18 @@ function stockInsuficiente(stock) {
     alert("No tenemos stock suficiente de ese producto, puede comprar hasta " + stock + " unidades")
 }
 
-function stockSuficiente(stock, nombre) {
-    stock -= cantidadComprada;
-    console.log("El stock remanente es de: " + stock + nombre);
-}
 
-function calcularPrecio(precio){
-    precioTotalVenta += cantidadComprada * precio;
+function calcularPrecio(precio, descuento){
+    precioTotalVenta += cantidadComprada * precio * descuento;
 }
 
 
-function compra(stock, precio, nombre) {
-    cantidadComprada = parseInt(prompt("Ingresa la cantidad que quiere comprar:"));
+function compra(stock, precio, descuento, producto) {
+    cantidadComprada = parseInt(prompt("Ingrese la cantidad que quiere comprar:"));
     if(cantidadComprada <= stock) {
-    stockSuficiente(stock, nombre);
+        producto.venta(cantidadComprada)
         if(cantidadComprada > 3){
-            calcularPrecio(precio)
+            calcularPrecio(precio, descuento)
         }
         else{
             calcularPrecio(precio, 1)
@@ -77,27 +99,39 @@ function compra(stock, precio, nombre) {
 
 function comprarProductos(){
 
-    let cantidadProductosComprados = parseInt(prompt("Ingresa la cantidad de productos distintos que quiere comprar"))
+    let cantidadProductosComprados = parseInt(prompt("Ingrese la cantidad de productos distintos que quiere comprar"))
 
     for (let i = 0; i < cantidadProductosComprados; i++) {
 
-        let nombreCompra = prompt("Ingresa el nombre del producto que quiere comprar:")
+        let nombreCompra = prompt("Ingrese el nombre del producto que quiere comprar:")
 
-        if (nombreCompra == nombreProductoA) {
-            compra(stockProductoA, precioProductoA, nombreProductoA)
+        if (nombreCompra == productoA.nombre) {
+            compra(productoA.stock, productoA.precio, productoA.descuento, productoA)
         }
-        else if (nombreCompra == nombreProductoB) {
-            compra(stockProductoB, precioProductoB, nombreProductoB)
+       else if (nombreCompra == productoB.nombre) {
+            compra(productoB.stock, productoB.precio, productoB.descuento, productoB)
+
         }
-        else if (nombreCompra == nombreProductoC) {
-            compra(stockProductoC, precioProductoC, nombreProductoC)
-        }
-        
-            else if (nombreCompra == nombreProductoD) {
-                compra(stockProductoD, precioProductoD, nombreProductoD)
+           else if (nombreCompra == productoC.nombre) {
+            compra(productoC.stock, productoC.precio, productoC.descuento, productoC)
             }
-
-            else {
+          else if (nombreCompra == productoD.nombre) {
+                compra(productoD.stock, productoD.precio, productoD.descuento, productoD)
+            }
+    
+       else if (nombreCompra == productoE.nombre) {
+            compra(productoE.stock, productoE.precio, productoE.descuento, productoE)
+        }
+   else if (nombreCompra == productoF.nombre) {
+        compra(productoF.stock, productoF.precio, productoF.descuento, productoF)
+    }
+  else if (nombreCompra == productoG.nombre) {
+        compra(productoG.stock, productoG.precio, productoG.descuento, productoG)
+    }
+   else if (nombreCompra == productoH.nombre) {
+        compra(productoH.stock, productoH.precio, productoH.descuento, productoH)
+    }
+        else {
             alert('No tenemos ese producto')
         }
     }
