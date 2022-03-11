@@ -1,7 +1,7 @@
 
 
 
-function menu(){
+/*function menu(){
     let opcion = prompt ("Menu: \n1 - Visitar Sitio \n2 - Comprar productos")
 
 
@@ -25,4 +25,4 @@ function productos(compra){
     alert(compra + "a la sección de productos!");
 }
 
-menu()
+menu()*/

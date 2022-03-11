@@ -205,28 +205,25 @@ i:hover {
     min-height: 100vh;
 }
 
-.controles-remotos {
-        display: flex;
-        flex-wrap: wrap;    
+.card-producto img { 
+        height: 200px;
+        width: 200px;
 }
 
-.controles-remotos img {
-        justify-content: center;
-        width: 300px;
-        height: 300px;
-        padding: 15px;
-        margin: 0 auto;
+.card-producto {
+    padding: 20px;
 }
 
-.cables-audio {
+.catalogo { 
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
 }
 
-.cables-audio img{
-        justify-content: center;
-        width: 300px;
-        height: 300px;
-        padding: 15px;
-        margin: 0 auto;
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+    
 }
+

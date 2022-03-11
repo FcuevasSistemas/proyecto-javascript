@@ -1,9 +1,11 @@
-function Productos (nombreValor, stockValor, precioValor, descuentoValor){
+function Productos (nombreValor, stockValor, precioValor, descuentoValor, categoriaValor, imgValor){
     this.nombre = nombreValor;
     this.stock = stockValor;
     this.precio = precioValor;
     this.descuento = descuentoValor;
-
+    this.categoria = categoriaValor;
+    this.img = imgValor;
+    
     this.venta = function(cantidadComprada){
         this.stock -= cantidadComprada
         console.log("El stock remanente es de: " + this.stock + " " + this.nombre);
@@ -14,22 +16,82 @@ function Productos (nombreValor, stockValor, precioValor, descuentoValor){
 let contador = 0
 let listadoProductosMenu = "Estos son nuestros productos: "
 
-const productoA = new Productos("Control Noblex", 10, 1200, 0.8)
-const productoB = new Productos("Control Philips", 8, 1100, 0.9)
-const productoC = new Productos("Control Samsung", 6, 1350, 0.95)
-const productoD = new Productos("Control LG", 4, 1500, 0.8)
-const productoE = new Productos("Cable RCA común", 12, 400, 0.9)
-const productoF = new Productos("Cable RCA reforzado", 10, 500, 0.9)
-const productoG = new Productos("Cable 3.5 - RCA", 20, 420, 0.9)
-const productoH = new Productos("Cable 3.5 - RCA reforzado", 2, 550, 0.9)
+const productoA = new Productos("Control Noblex", 10, 1200, 0.8, "control", "../imagenes/control-noblex.jpg")
+const productoB = new Productos("Control Philips", 8, 1100, 0.9, "control", "../imagenes/control-philips.jpg")
+//const productoC = new Productos("Control Samsung", 6, 1350, 0.95, "control", "")
+//const productoD = new Productos("Control LG", 4, 1500, 0.8, "control", "")
+const productoE = new Productos("Cable RCA común", 12, 400, 0.9, "cable", "../imagenes/cable-rca-comun.jpg")
+const productoF = new Productos("Cable RCA reforzado", 10, 500, 0.9, "cable", "../imagenes/cable-rca-premium.jpg")
+//const productoG = new Productos("Cable 3.5 - RCA", 20, 420, 0.9, "cable", "")
+//const productoH = new Productos("Cable 3.5 - RCA reforzado", 2, 550, 0.9, "cable", "")
 
-const listaProductos = [productoA, productoB, productoC, productoD,
-    productoE,productoF,productoG,productoH]
+const listaProductos = [productoA, productoE, productoB, productoF]
 
-const menorPrecio = listaProductos.filter(producto => producto.precio <= 600);
+//let categoriaProducto = console.log("ingrese la categoria de producto...")
+
+//const listaSegunCategoria = listaProductos.filter(x => x.categoria == categoriaProducto);
+
+let catalogo = document.createElement("div")
+
+
+let control = document.querySelector(".categoria1")
+let cable = document.querySelector(".categoria2")
+
+control.addEventListener("click", renderControl)
+cable.addEventListener("click", renderCable)
+
+/*for (const producto of listaProductos) {
+    let contenedor = document.createElement("div");
+
+    contenedor.innerHTML = `<div class="card-producto">
+                            <img src=${producto.img} class="imagen"/>
+                            <p>Producto: ${producto.nombre}</p>
+                            <b>$ ${producto.precio}</b></div>`
+                    
+                catalogo.appendChild(contenedor);        
+}*/
+
+function renderControl(){
+
+    const listaSegunCategoria = listaProductos.filter(x => x.categoria == "control");
+
+    let catalogo = document.querySelector(".catalogo")
+
+    for (const producto of listaSegunCategoria) {
+        let contenedor = document.createElement("div");
+    
+        contenedor.innerHTML = `<div class="card-producto">
+                                <img src=${producto.img} class="imagen"/>
+                                <p>Producto: ${producto.nombre}</p>
+                                <b>$ ${producto.precio}</b></div>`
+                        catalogo.appendChild(contenedor);        
+    }
+}
+
+function renderCable(){
+    const listaSegunCategoria = listaProductos.filter(x => x.categoria == "cable");
+
+    let catalogo = document.querySelector(".catalogo")
+
+    for (const producto of listaSegunCategoria) {
+        let contenedor = document.createElement("div");
+    
+        contenedor.innerHTML = `<div class="card-producto">
+                                <img src=${producto.img} class="imagen"/>
+                                <p>Producto: ${producto.nombre}</p>
+                                <b>$ ${producto.precio}</b></div>`
+                        catalogo.appendChild(contenedor);        
+    }
+}
+
+
+
+
+
+    /*const menorPrecio = listaProductos.filter(producto => producto.precio <= 600);
 const menorStock = listaProductos.filter(producto => producto.stock <= 5);
 console.log(menorPrecio);        
-console.log(menorStock);
+console.log(menorStock);*/
 
 
 
@@ -97,7 +159,7 @@ function compra(stock, precio, descuento, producto) {
     }
 }
 
-function comprarProductos(){
+/*function comprarProductos(){
 
     let cantidadProductosComprados = parseInt(prompt("Ingrese la cantidad de productos distintos que quiere comprar"))
 
@@ -142,3 +204,4 @@ function comprarProductos(){
 
 
 menu()
+*/
