@@ -1,207 +1,121 @@
-function Productos (nombreValor, stockValor, precioValor, descuentoValor, categoriaValor, imgValor){
-    this.nombre = nombreValor;
-    this.stock = stockValor;
-    this.precio = precioValor;
-    this.descuento = descuentoValor;
-    this.categoria = categoriaValor;
-    this.img = imgValor;
-    
-    this.venta = function(cantidadComprada){
-        this.stock -= cantidadComprada
-        console.log("El stock remanente es de: " + this.stock + " " + this.nombre);
+
+const addToShoppingCartButtons = document.querySelectorAll('.addToCart');
+addToShoppingCartButtons.forEach((addToCartButton) => {
+  addToCartButton.addEventListener('click', addToCartClicked);
+});
+
+const comprarButton = document.querySelector('.comprarButton');
+comprarButton.addEventListener('click', comprarButtonClicked);
+
+const shoppingCartItemsContainer = document.querySelector(
+  '.shoppingCartItemsContainer'
+);
+
+function addToCartClicked(event) {
+  const button = event.target;
+  const item = button.closest('.item');
+
+  const itemTitle = item.querySelector('.item-title').textContent;
+  const itemPrice = item.querySelector('.item-price').textContent;
+  const itemImage = item.querySelector('.item-image').src;
+
+  addItemToShoppingCart(itemTitle, itemPrice, itemImage);
+}
+
+function addItemToShoppingCart(itemTitle, itemPrice, itemImage) {
+  const elementsTitle = shoppingCartItemsContainer.getElementsByClassName(
+    'shoppingCartItemTitle'
+  );
+  for (let i = 0; i < elementsTitle.length; i++) {
+    if (elementsTitle[i].innerText === itemTitle) {
+      let elementQuantity = elementsTitle[
+        i
+      ].parentElement.parentElement.parentElement.querySelector(
+        '.shoppingCartItemQuantity'
+      );
+      elementQuantity.value++;
+      $('.toast').toast('show');
+      updateShoppingCartTotal();
+      return;
     }
+  }
+
+  const shoppingCartRow = document.createElement('div');
+  const shoppingCartContent = `
+  <div class="row shoppingCartItem">
+        <div class="col-6">
+            <div class="shopping-cart-item d-flex align-items-center h-100 border-bottom pb-2 pt-3">
+                <img src=${itemImage} class="shopping-cart-image">
+                <h6 class="shopping-cart-item-title shoppingCartItemTitle text-truncate ml-3 mb-0">${itemTitle}</h6>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="shopping-cart-price d-flex align-items-center h-100 border-bottom pb-2 pt-3">
+                <p class="item-price mb-0 shoppingCartItemPrice">${itemPrice}</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <div
+                class="shopping-cart-quantity d-flex justify-content-between align-items-center h-100 border-bottom pb-2 pt-3">
+                <input class="shopping-cart-quantity-input shoppingCartItemQuantity" type="number"
+                    value="1">
+                <button class="btn btn-danger buttonDelete" type="button">X</button>
+            </div>
+        </div>
+    </div>`;
+  shoppingCartRow.innerHTML = shoppingCartContent;
+  shoppingCartItemsContainer.append(shoppingCartRow);
+
+  shoppingCartRow
+    .querySelector('.buttonDelete')
+    .addEventListener('click', removeShoppingCartItem);
+
+  shoppingCartRow
+    .querySelector('.shoppingCartItemQuantity')
+    .addEventListener('change', quantityChanged);
+
+  updateShoppingCartTotal();
+}
+
+function updateShoppingCartTotal() {
+  let total = 0;
+  const shoppingCartTotal = document.querySelector('.shoppingCartTotal');
+
+  const shoppingCartItems = document.querySelectorAll('.shoppingCartItem');
+
+  shoppingCartItems.forEach((shoppingCartItem) => {
+    const shoppingCartItemPriceElement = shoppingCartItem.querySelector(
+      '.shoppingCartItemPrice'
+    );
+    const shoppingCartItemPrice = Number(
+      shoppingCartItemPriceElement.textContent.replace('$', '')
+    );
+    const shoppingCartItemQuantityElement = shoppingCartItem.querySelector(
+      '.shoppingCartItemQuantity'
+    );
+    const shoppingCartItemQuantity = Number(
+      shoppingCartItemQuantityElement.value
+    );
+    total = total + shoppingCartItemPrice * shoppingCartItemQuantity;
+  });
+  shoppingCartTotal.innerHTML = `${total.toFixed(2)}$`;
+}
+
+function removeShoppingCartItem(event) {
+  const buttonClicked = event.target;
+  buttonClicked.closest('.shoppingCartItem').remove();
+  updateShoppingCartTotal();
+}
+
+function quantityChanged(event) {
+  const input = event.target;
+  input.value <= 0 ? (input.value = 1) : null;
+  updateShoppingCartTotal();
+}
+
+function comprarButtonClicked() {
+  shoppingCartItemsContainer.innerHTML = '';
+  updateShoppingCartTotal();
 }
 
 
-let contador = 0
-let listadoProductosMenu = "Estos son nuestros productos: "
-
-const productoA = new Productos("Control Noblex", 10, 1200, 0.8, "control", "../imagenes/control-noblex.jpg")
-const productoB = new Productos("Control Philips", 8, 1100, 0.9, "control", "../imagenes/control-philips.jpg")
-//const productoC = new Productos("Control Samsung", 6, 1350, 0.95, "control", "")
-//const productoD = new Productos("Control LG", 4, 1500, 0.8, "control", "")
-const productoE = new Productos("Cable RCA común", 12, 400, 0.9, "cable", "../imagenes/cable-rca-comun.jpg")
-const productoF = new Productos("Cable RCA reforzado", 10, 500, 0.9, "cable", "../imagenes/cable-rca-premium.jpg")
-//const productoG = new Productos("Cable 3.5 - RCA", 20, 420, 0.9, "cable", "")
-//const productoH = new Productos("Cable 3.5 - RCA reforzado", 2, 550, 0.9, "cable", "")
-
-const listaProductos = [productoA, productoE, productoB, productoF]
-
-//let categoriaProducto = console.log("ingrese la categoria de producto...")
-
-//const listaSegunCategoria = listaProductos.filter(x => x.categoria == categoriaProducto);
-
-let catalogo = document.createElement("div")
-
-
-let control = document.querySelector(".categoria1")
-let cable = document.querySelector(".categoria2")
-
-control.addEventListener("click", renderControl)
-cable.addEventListener("click", renderCable)
-
-/*for (const producto of listaProductos) {
-    let contenedor = document.createElement("div");
-
-    contenedor.innerHTML = `<div class="card-producto">
-                            <img src=${producto.img} class="imagen"/>
-                            <p>Producto: ${producto.nombre}</p>
-                            <b>$ ${producto.precio}</b></div>`
-                    
-                catalogo.appendChild(contenedor);        
-}*/
-
-function renderControl(){
-
-    const listaSegunCategoria = listaProductos.filter(x => x.categoria == "control");
-
-    let catalogo = document.querySelector(".catalogo")
-
-    for (const producto of listaSegunCategoria) {
-        let contenedor = document.createElement("div");
-    
-        contenedor.innerHTML = `<div class="card-producto">
-                                <img src=${producto.img} class="imagen"/>
-                                <p>Producto: ${producto.nombre}</p>
-                                <b>$ ${producto.precio}</b></div>`
-                        catalogo.appendChild(contenedor);        
-    }
-}
-
-function renderCable(){
-    const listaSegunCategoria = listaProductos.filter(x => x.categoria == "cable");
-
-    let catalogo = document.querySelector(".catalogo")
-
-    for (const producto of listaSegunCategoria) {
-        let contenedor = document.createElement("div");
-    
-        contenedor.innerHTML = `<div class="card-producto">
-                                <img src=${producto.img} class="imagen"/>
-                                <p>Producto: ${producto.nombre}</p>
-                                <b>$ ${producto.precio}</b></div>`
-                        catalogo.appendChild(contenedor);        
-    }
-}
-
-
-
-
-
-    /*const menorPrecio = listaProductos.filter(producto => producto.precio <= 600);
-const menorStock = listaProductos.filter(producto => producto.stock <= 5);
-console.log(menorPrecio);        
-console.log(menorStock);*/
-
-
-
-
-
-for(const producto of listaProductos){
-    contador++
-    listadoProductosMenu += "\n" + contador + "- " + producto.nombre
-}
-
-function listarProductos(){
-    alert(listadoProductosMenu)
-}
-
-function menu(){
-    let opcion = prompt("Menu: \n1 - Ver productos\n2 - Saludar\nESC- Salir")
-
-    switch(opcion){
-        case "1":
-            listarProductos();
-            comprarProductos();
-            break;
-        case "2":
-            saludar("Bienvenido a");
-            menu();
-            break;
-        case "ESC":
-            saludar("Gracias por visitar")
-            break;
-    }
-}
-
-function saludar(saludo){
-    alert(saludo + " la sección productos!")
-}
-
-
-
-let cantidadComprada;
-let precioTotalVenta = 0;
-
-function stockInsuficiente(stock) {
-    alert("No tenemos stock suficiente de ese producto, puede comprar hasta " + stock + " unidades")
-}
-
-
-function calcularPrecio(precio, descuento){
-    precioTotalVenta += cantidadComprada * precio * descuento;
-}
-
-
-function compra(stock, precio, descuento, producto) {
-    cantidadComprada = parseInt(prompt("Ingrese la cantidad que quiere comprar:"));
-    if(cantidadComprada <= stock) {
-        producto.venta(cantidadComprada)
-        if(cantidadComprada > 3){
-            calcularPrecio(precio, descuento)
-        }
-        else{
-            calcularPrecio(precio, 1)
-        }
-    }
-    else {
-        stockInsuficiente(stock)
-    }
-}
-
-/*function comprarProductos(){
-
-    let cantidadProductosComprados = parseInt(prompt("Ingrese la cantidad de productos distintos que quiere comprar"))
-
-    for (let i = 0; i < cantidadProductosComprados; i++) {
-
-        let nombreCompra = prompt("Ingrese el nombre del producto que quiere comprar:")
-
-        if (nombreCompra == productoA.nombre) {
-            compra(productoA.stock, productoA.precio, productoA.descuento, productoA)
-        }
-       else if (nombreCompra == productoB.nombre) {
-            compra(productoB.stock, productoB.precio, productoB.descuento, productoB)
-
-        }
-           else if (nombreCompra == productoC.nombre) {
-            compra(productoC.stock, productoC.precio, productoC.descuento, productoC)
-            }
-          else if (nombreCompra == productoD.nombre) {
-                compra(productoD.stock, productoD.precio, productoD.descuento, productoD)
-            }
-    
-       else if (nombreCompra == productoE.nombre) {
-            compra(productoE.stock, productoE.precio, productoE.descuento, productoE)
-        }
-   else if (nombreCompra == productoF.nombre) {
-        compra(productoF.stock, productoF.precio, productoF.descuento, productoF)
-    }
-  else if (nombreCompra == productoG.nombre) {
-        compra(productoG.stock, productoG.precio, productoG.descuento, productoG)
-    }
-   else if (nombreCompra == productoH.nombre) {
-        compra(productoH.stock, productoH.precio, productoH.descuento, productoH)
-    }
-        else {
-            alert('No tenemos ese producto')
-        }
-    }
-
-    alert("El precio de su compra es de: $" + precioTotalVenta);
-}
-
-
-
-menu()
-*/
