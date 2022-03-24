@@ -158,14 +158,14 @@ i:hover {
 }
 
 
-.card {
+.card-nosotros {
     border-top-left-radius: 50px;
     border-top-right-radius: 110px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 50px;
 }
 
-.card img {
+.card-nosotros img {
     border-top-left-radius: 40px;
     border-top-right-radius: 90px;
 }
@@ -253,6 +253,11 @@ i:hover {
   
   .item-details > .item-price {
     margin: 0;
+  }
+
+
+  .pricing-header h1 {
+      padding-top: 70px;
   }
   
   /* ? SHOPPING CART */
