@@ -195,6 +195,23 @@ class Carrito {
         }
     }
 
+    //Calcular montos
+    calcularTotal(){
+        let productosLS;
+        let total = 0, igv = 0, subtotal = 0;
+        productosLS = this.obtenerProductosLocalStorage();
+        for(let i = 0; i < productosLS.length; i++){
+            let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+            total = total + element;
+            
+        }
+        
+        
+
+        document.getElementById('subtotal').innerHTML = subtotal;
+        document.getElementById('total').value = total.toFixed(2);
+    }
+
     obtenerEvento(e) {
         e.preventDefault();
         let id, cantidad, producto, productosLS;

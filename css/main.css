@@ -107,11 +107,12 @@ body {
     color: rgb(240, 240, 229);
 }
 
-.maps {
+#map {
     padding: 20px;
     display: flex;
     justify-content: center;
     background-color: rgb(223, 221, 216);
+    height: 450px;
 }
 
 /* ESTILOS FOOTER */
